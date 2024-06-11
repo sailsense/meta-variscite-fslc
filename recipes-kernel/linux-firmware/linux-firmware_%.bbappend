@@ -4,8 +4,12 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
 
 SRCREV_FORMAT = "linux-firmware"
 
-BRCM_REV = "8.5.0.7"
-SRC_URI[brcm_lwb.sha256sum] = "5a607bc3ca8cea619eae03efa2def406b813603751ffaf3c57c43d7874b4b34e"
+BRCM_REV = "11.171.0.24"
+SRC_URI[brcm_lwb.sha256sum] = "ff240c8c9ce0e7f19003dba72be93d34bc13a40b76292f2ec25dc6e248dd96aa"
+
+# LWB5 modules do not work with version higher than 8.5.0.7 (tested each version until at least 11.171.0.24)
+# as brcmfmac says "brcmfmac: brcmf_sdio_firmware_callback: brcmf_attach failed" for later versions
+BRCM5_REV = "8.5.0.7"
 SRC_URI[brcm_lwb5.sha256sum] = "221f1a552eb8d273fd0e169da873eb8a9610edc836ae2b026ebd4e7f82f4ffa2"
 
 # TI WiFi FW 8.9.0.0.88 and BT FW 4.7
@@ -16,7 +20,7 @@ BRANCH_tibt = "master"
 
 SRC_URI_append = " \
 	https://github.com/LairdCP/Sterling-LWB-and-LWB5-Release-Packages/releases/download/LRD-REL-${BRCM_REV}/laird-lwb-fcc-firmware-${BRCM_REV}.tar.bz2;name=brcm_lwb \
-	https://github.com/LairdCP/Sterling-LWB-and-LWB5-Release-Packages/releases/download/LRD-REL-${BRCM_REV}/laird-lwb5-fcc-firmware-${BRCM_REV}.tar.bz2;name=brcm_lwb5 \
+	https://github.com/LairdCP/Sterling-LWB-and-LWB5-Release-Packages/releases/download/LRD-REL-${BRCM5_REV}/laird-lwb5-fcc-firmware-${BRCM5_REV}.tar.bz2;name=brcm_lwb5 \
 	git://git.ti.com/wilink8-wlan/wl18xx_fw.git;protocol=git;branch=${BRANCH_tiwlan};destsuffix=tiwlan;name=tiwlan \
 	git://git.ti.com/ti-bt/service-packs.git;protocol=git;branch=${BRANCH_tibt};destsuffix=tibt;name=tibt \
 	file://wl1271-nvs.bin \
